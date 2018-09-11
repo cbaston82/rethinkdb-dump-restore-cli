@@ -1,0 +1,38 @@
+{
+  "name": "rethinkdb-dump-restore-cli",
+  "version": "1.0.0",
+  "description": "Quickly dump and restore your RethinkDB database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "prepublish": "npm test"
+  },
+  "bin": {
+    "rtkdb": "bin/index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.0",
+    "inquirer": "^6.2.0",
+    "shelljs": "^0.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImagineDesignDevelop/rethinkdb-dump-restore-cli.git"
+  },
+  "keywords": [
+    "rethinkdb",
+    "database",
+    "cli"
+  ],
+  "author": "Carlos Baston",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ImagineDesignDevelop/rethinkdb-dump-restore-cli/issues"
+  },
+  "homepage": "https://github.com/ImagineDesignDevelop/rethinkdb-dump-restore-cli#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
