@@ -1,14 +1,13 @@
-const fs = require('fs')
-const dumps = []
+const readDir = require('readdir')
+
+// Get OS home directory.
+const oshomedir = require('os').homedir()
+
+//rtkdb dumps dir folder.
+const rtkdbhomedumpsdir = oshomedir+'/.rtkdb/dumps'
 
 // Scan /dumps/ and get all dummp files for use in restore list.
-;(() => {
-  fs.readdir(`${__dirname}/dumps/`, (err, files) => {
-    files.forEach(file => {
-      file.includes('.tar.gz') && (dumps.push(file))
-    });
-  })
-})()
+var dumps = readDir.readSync(rtkdbhomedumpsdir, ['*.tar.gz'] );
 
 const restoreDBQuestions = [{
         type: 'input',

@@ -5,6 +5,17 @@ const clear = require('clear')
 const inquirer = require('inquirer')
 const figlet = require('figlet')
 const shell = require('shelljs')
+const mkdirp = require('mkdirp')
+
+// Get OS home directory.
+const oshomedir = require('os').homedir()
+
+//rtkdb dumps dir folder.
+const rtkdbhomedumpsdir = oshomedir+'/.rtkdb/dumps'
+
+mkdirp.sync(rtkdbhomedumpsdir, function (err) {
+    if (err) throw new Error("Something went badly wrong!")
+});
 
 // Questions.
 const initChoices = require('./initChoices.js')
@@ -30,6 +41,7 @@ console.log(
 ;(async () => {
   this.dumpdb = dumpdb
   this.restoredb = restoredb
+  this.abort = abort
   const run = await inquirer.prompt(initChoices)
   await this[run.action.toLowerCase().split(' ').join('')]()
 })()
@@ -40,7 +52,7 @@ async function restoredb () {
   let command = ['rethinkdb restore -c']
   host, port && (command = command.concat([host+':'+port]))
   force && (command = command.concat(['--force']))
-  filename && (command = command.concat([`${__dirname}/dumps/${filename}`]))
+  filename && (command = command.concat([`${rtkdbhomedumpsdir}/${filename}`]))
   runcommand(command)
 }
 
@@ -49,12 +61,30 @@ async function dumpdb () {
   const {host, port, db, filename} = await inquirer.prompt(dumpDBQuestions)
   let command = ['rethinkdb dump -c']
   host, port && (command = command.concat([host+':'+port]))
-  filename && (command = command.concat([`-f ${__dirname}/dumps/${filename}`]))
+  db && (command = command.concat([`-e ${db}`]))
+  filename && (command = command.concat([`-f ${rtkdbhomedumpsdir}/${filename}`]))
   runcommand(command)
+}
+
+// Exit the utility. Do nothing.
+function abort () {
+  console.log(
+    '\n' +
+    chalk.redBright('Aborting...') + 
+    '\n'
+  )
+  process.exit() 
 }
 
 // Execute the command to either dump or restore db.
 async function runcommand (command) {
+console.log(
+  chalk.redBright(
+    '\n' +
+    command.join(' ') +
+    '\n'
+    )
+)
   await shell.exec(command.join(' '))
   shell.echo(`${chalk.white('Done')}`)
 }
