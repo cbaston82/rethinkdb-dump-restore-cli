@@ -14,5 +14,5 @@ You now have access to `rtkdb` globally.
   rtkdb
 ```
 
-![rtkdb dump db screenshot 1](https://res.cloudinary.com/imagine-design-develop/image/upload/v1536630554/screenshots/Screen_Shot_2018-09-10_at_6.27.57_PM.png)
+![rtkdb dump db screenshot 1](https://res.cloudinary.com/imagine-design-develop/image/upload/v1536721671/screenshots/Screen_Shot_2018-09-11_at_8.07.01_PM.png)
 
