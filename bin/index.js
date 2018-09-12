@@ -51,7 +51,7 @@ async function restoredb () {
   const {host, port, filename, force} = await inquirer.prompt(restoreDBQuestions)
   let command = ['rethinkdb restore -c']
   host, port && (command = command.concat([host+':'+port]))
-  force && (command = command.concat(['--force']))
+  force === 'Yes' && (command = command.concat(['--force']))
   filename && (command = command.concat([`${rtkdbhomedumpsdir}/${filename}`]))
   runcommand(command)
 }
