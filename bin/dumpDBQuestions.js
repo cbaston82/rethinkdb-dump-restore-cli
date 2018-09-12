@@ -1,20 +1,38 @@
+const fileExists = require('file-exists')
+const oshomedir = require('os').homedir()
+
+let hostname = 'localhost'
+let portnumber = 28015
+let db = 'ayy'
+
+// Check if rtkdbconfig.json exists
+const rtkdbconfigexists = fileExists.sync(oshomedir+'/.rtkdb/rtkdbconfig.json')
+
+if (rtkdbconfigexists) {
+    // Get local config settings.
+    const rtkdbconfig = require (oshomedir+'/.rtkdb/rtkdbconfig.json')
+    hostname = rtkdbconfig.hostname
+    portnumber = rtkdbconfig.portnumber
+    db = rtkdbconfig.db
+}
+
 const dumpDBQuestions = [{
         type: 'input',
         name: 'host',
         message: 'Hostname',
-        default: 'localhost'
+        default: hostname
     },
     {
         type: 'input',
         name: 'port',
         message: 'Port Number',
-        default: '28015'
+        default: portnumber
     },
     {
         type: 'input',
         name: 'db',
         message: 'Database Name',
-        default: 'ayy',
+        default: db,
         validate: (input) => {
             return new Promise((resolve, reject) => {
                 if (!input.length) {
