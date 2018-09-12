@@ -11,9 +11,9 @@ const rtkdbconfigexists = fileExists.sync(oshomedir+'/.rtkdb/rtkdbconfig.json')
 if (rtkdbconfigexists) {
     // Get local config settings.
     const rtkdbconfig = require (oshomedir+'/.rtkdb/rtkdbconfig.json')
-    hostname = rtkdbconfig.hostname
-    portnumber = rtkdbconfig.portnumber
-    db = rtkdbconfig.db
+    rtkdbconfig.hostname && (hostname = rtkdbconfig.hostname)
+    rtkdbconfig.portnumber && (portnumber = rtkdbconfig.portnumber)
+    rtkdbconfig.db && (db = rtkdbconfig.db)
 }
 
 const dumpDBQuestions = [{
@@ -36,7 +36,7 @@ const dumpDBQuestions = [{
         validate: (input) => {
             return new Promise((resolve, reject) => {
                 if (!input.length) {
-                    reject('You need to provide a database name!')
+                    reject('Please provide a database name!')
                 }
                 resolve(true)
             })

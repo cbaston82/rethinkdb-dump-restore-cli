@@ -48,7 +48,7 @@ console.log(
 
 // Restore DB function.
 async function restoredb () {
-  const {host, port, db, filename, force} = await inquirer.prompt(restoreDBQuestions)
+  const {host, port, filename, force} = await inquirer.prompt(restoreDBQuestions)
   let command = ['rethinkdb restore -c']
   host, port && (command = command.concat([host+':'+port]))
   force && (command = command.concat(['--force']))

@@ -21,20 +21,20 @@ const restoreDBQuestions = [{
         message: 'Port Number',
         default: '28015'
     },
-    {
-        type: 'input',
-        name: 'db',
-        message: 'Database Name',
-        default: 'ayy',
-        validate: (input) => {
-            return new Promise((resolve, reject) => {
-                if (!input.length) {
-                    reject('You need to provide a database name!')
-                }
-                resolve(true)
-            })
-        }
-    },
+    // {
+    //     type: 'input',
+    //     name: 'db',
+    //     message: 'Database Name',
+    //     default: 'ayy',
+    //     validate: (input) => {
+    //         return new Promise((resolve, reject) => {
+    //             if (!input.length) {
+    //                 reject('Please provide a database name!')
+    //             }
+    //             resolve(true)
+    //         })
+    //     }
+    // },
     {
         type: 'confirm',
         name: 'force',
