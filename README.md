@@ -16,7 +16,7 @@ You now have access to `rtkdb` globally.
 
 ![rtkdb dump db screenshot 1](https://res.cloudinary.com/imagine-design-develop/image/upload/v1536721671/screenshots/Screen_Shot_2018-09-11_at_8.07.01_PM.png)
 
-## Location the dumped files.
+## Locating the dumped files.
 All dumps are located in `$HOME/.rtkdb/dumps`. This is automatically created when you first run the `rtkdb` command.
 
 ## Overriding the defaults settings.
