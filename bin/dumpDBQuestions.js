@@ -1,4 +1,5 @@
 const {options, dumps} = require('./config')
+const timestamp = require('time-stamp')
 
 const dumpDBQuestions = [{
         type: 'input',
@@ -30,7 +31,7 @@ const dumpDBQuestions = [{
         type: 'input',
         name: 'filename',
         message: 'File name',
-        default: `rethinkdb_dump.${new Date().getTime()}.tar.gz`
+        default: `rethikdb_dump_${timestamp('YYYY-MM-DDTHH:mm:ss')}.tar.gz`
     }
 ]
 
