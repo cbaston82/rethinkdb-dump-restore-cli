@@ -10,3 +10,8 @@ test('Should equal to Restore DB', () => {
   const choiceOne = choice[0].choices[1]
   expect(choiceOne).toMatch(/Restore DB/)
 });
+
+test('Should equal to Restore Table', () => {
+  const choiceOne = choice[0].choices[2]
+  expect(choiceOne).toMatch(/Restore Table/)
+});

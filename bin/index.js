@@ -21,6 +21,7 @@ mkdirp.sync(rtkdbhomedumpsdir, function (err) {
 const initChoices = require('./initChoices.js')
 const dumpDBQuestions = require('./dumpDBQuestions.js')
 const restoreDBQuestions = require('./restoreDBQuestions.js')
+const restoreTableQuestions = require('./restoreTableQuestions.js')
 
 // Clearn terminal.
 clear()
@@ -41,6 +42,7 @@ console.log(
 ;(async () => {
   this.dumpdb = dumpdb
   this.restoredb = restoredb
+  this.restoretable = restoretable
   this.abort = abort
   const run = await inquirer.prompt(initChoices)
   await this[run.action.toLowerCase().split(' ').join('')]()
@@ -48,11 +50,12 @@ console.log(
 
 // Restore DB function.
 async function restoredb () {
-  const {host, port, filename, force} = await inquirer.prompt(restoreDBQuestions)
+  const {host, port, db, filename, force} = await inquirer.prompt(restoreDBQuestions)
   let command = ['rethinkdb restore -c']
   host, port && (command = command.concat([host+':'+port]))
   force === 'Yes' && (command = command.concat(['--force']))
   filename && (command = command.concat([`${rtkdbhomedumpsdir}/${filename}`]))
+  db && (command = command.concat([`-i ${db}`]))
   runcommand(command)
 }
 
@@ -63,6 +66,17 @@ async function dumpdb () {
   host, port && (command = command.concat([host+':'+port]))
   db && (command = command.concat([`-e ${db}`]))
   filename && (command = command.concat([`-f ${rtkdbhomedumpsdir}/${filename}`]))
+  runcommand(command)
+}
+
+// Restore table.
+async function restoretable () {
+  const {host, port, db, filename, tablename, force} = await inquirer.prompt(restoreTableQuestions)
+  let command = ['rethinkdb restore -c']
+  host, port && (command = command.concat([host+':'+port]))
+  force === 'Yes' && (command = command.concat(['--force']))
+  filename && (command = command.concat([`${rtkdbhomedumpsdir}/${filename}`]))
+  tablename, db && (command = command.concat([`-i ${db}.${tablename}`]))
   runcommand(command)
 }
 
